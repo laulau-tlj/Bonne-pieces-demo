@@ -5,5 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test"
+  },
+  "dependencies": {
+    "stripe": "^20.4.1"
   }
 }

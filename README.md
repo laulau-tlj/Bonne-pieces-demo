@@ -17,7 +17,7 @@ Catalogue de pièces automobiles réalisé en **HTML, CSS et JavaScript pur** (s
 
 ## 🛠️ Technologies
 
-HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Netlify Forms · tests avec `node:test`
+HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · Stripe Checkout · Netlify Functions · localStorage · Netlify Forms · tests avec `node:test`
 
 ## Structure
 
@@ -35,7 +35,8 @@ HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Ne
 ├── panier.js         # Règles du panier et calcul des montants
 ├── panier-ui.js      # Affichage, actions et persistance du panier
 ├── panier.test.js    # Tests des règles et calculs du panier
-├── paiement.js       # Point d'entrée provisoire du paiement
+├── paiement.js       # Appel de la fonction de paiement et redirection Checkout
+├── netlify/functions/# Création et vérification serveur des sessions Stripe
 ├── data/             # Catalogue (pieces.json) et avis d'exemple (avis.json)
 └── images/           # Illustrations et logo
 ```
@@ -50,6 +51,17 @@ HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Ne
    (le site doit être servi par un serveur, un double-clic sur le fichier ne suffit pas).
 2. Dans `config.js`, `MODE_DEMO = true` utilise les fichiers du dossier `data/`.
    Avec `MODE_DEMO = false`, les données viennent d'une API sur `http://localhost:8081`.
+
+### Paiement Stripe en mode test
+
+Le paiement passe par `/.netlify/functions/create-checkout-session`. Le navigateur ne transmet que les identifiants et quantités; la fonction relit les prix et les disponibilités dans `data/pieces.json` et crée une session Stripe Checkout. Au retour, `/.netlify/functions/checkout-session-status` vérifie la session auprès de Stripe avant d'afficher la confirmation et de vider le panier. La clé secrète Stripe doit rester côté serveur; cette première version refuse volontairement les clés live.
+
+1. Installe les dépendances avec `npm install`.
+2. Dans le tableau de bord Netlify, ajoute `STRIPE_SECRET_KEY` aux variables d'environnement du site avec une clé de test Stripe (`sk_test_...`). Ne la mets jamais dans le code ou dans une variable JavaScript publique.
+3. En local, démarre le site avec Netlify CLI et fournis les variables au processus, par exemple sur macOS/Linux : `URL=http://localhost:8888 STRIPE_SECRET_KEY=sk_test_... npx netlify-cli dev`. Live Server ne sert pas les fonctions Netlify.
+4. Utilise les moyens de paiement de test Stripe. Configure la même variable dans Netlify avant de déployer.
+
+La vérification au retour dépend de la navigation du client. Pour enregistrer ou traiter les commandes de façon fiable, ajoute aussi un webhook Stripe côté serveur : il recevra la confirmation même si le client ne revient pas sur le site.
 
 ### Tests
 

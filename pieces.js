@@ -5,7 +5,8 @@ import { ajoutListenerAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
 import { ajoutListenerContact, afficherCVSiPresent } from "./contact.js";
 import { filtrerPieces } from "./filtres.js";
 import { el } from "./dom.js";
-import { initPanier, ajouterAuPanier } from "./panier-ui.js";
+import { initPanier, ajouterAuPanier, viderPanier } from "./panier-ui.js";
+import { verifierPaiement } from "./paiement.js";
 
 const grille = document.querySelector(".fiches");
 const compteur = document.querySelector("#compteur");
@@ -17,6 +18,7 @@ const favorisSeuls = document.querySelector("#favoris-seuls");
 const nbFavoris = document.querySelector("#nb-favoris");
 const tri = document.querySelector("#tri");
 const selectPiece = document.querySelector("#piece-id");
+const messagePaiement = document.querySelector("#checkout-message");
 
 const formatPrix = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" });
 
@@ -125,6 +127,38 @@ async function demarrer({ forcer = false } = {}) {
 	afficher();
 }
 
+// Vérifie si l'URL contient des paramètres de retour de paiement et agit en conséquence.
+async function traiterRetourPaiement() {
+	const parametres = new URLSearchParams(window.location.search);
+	const statut = parametres.get("checkout");
+	if (statut === "cancel") {
+		messagePaiement.textContent = "Paiement annulé. Votre panier est conservé.";
+		messagePaiement.hidden = false;
+		return;
+	}
+	if (statut !== "success") return;
+
+	const sessionId = parametres.get("session_id");
+	if (!sessionId) {
+		messagePaiement.textContent = "La session de paiement est introuvable. Votre panier est conservé.";
+		messagePaiement.hidden = false;
+		return;
+	}
+
+	messagePaiement.textContent = "Vérification du paiement…";
+	messagePaiement.hidden = false;
+	try {
+		if (!await verifierPaiement(sessionId)) {
+			messagePaiement.textContent = "Le paiement n'est pas confirmé. Votre panier est conservé.";
+			return;
+		}
+		viderPanier();
+		messagePaiement.textContent = "Paiement confirmé par Stripe. Merci pour votre commande.";
+	} catch {
+		messagePaiement.textContent = "Impossible de vérifier le paiement. Votre panier est conservé.";
+	}
+}
+
 // Chaque contrôle ne modifie que l'état concerné, puis reconstruit les résultats depuis la source.
 prixMax.addEventListener("input", () => {
 	etat.prixMax = Number(prixMax.value);
@@ -161,9 +195,11 @@ grille.addEventListener("click", (event) => {
 	if (piece) ajouterAuPanier(piece);
 });
 
+//ici on ajoute les écouteurs pour les avis, le formulaire de contact et le formulaire d'avis, puis on démarre l'application et on traite le retour du paiement
 ajoutListenerAvis(grille);
 ajoutListenerContact(document.querySelector(".formulaire-contact"), document.querySelector(".message-contact"));
 ajoutListenerEnvoyerAvis(document.querySelector(".formulaire-avis"), document.querySelector(".message-avis"));
 if (MODE_DEMO) document.querySelector(".bandeau-demo").hidden = false;
 afficherCVSiPresent(document.querySelector("#lien-cv"));
 demarrer();
+traiterRetourPaiement();

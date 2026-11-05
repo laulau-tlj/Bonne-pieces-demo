@@ -15,6 +15,7 @@ const badge = document.querySelector("#nb-panier");
 const annonce = document.querySelector("#annonce");
 const commander = document.querySelector("#commander");
 
+// Lit le panier depuis le stockage local, ou retourne un tableau vide si aucune donnée n'est présente.
 function lireLignes() {
 	try {
 		// Ignore une valeur absente ou mal formée plutôt que de bloquer l'interface.
@@ -75,6 +76,11 @@ export function initPanier(pieces) {
 	afficherPanier();
 }
 
+// Vide le panier uniquement après vérification serveur du paiement Stripe.
+export function viderPanier() {
+	modifier([]);
+}
+
 // Un seul écouteur gère les boutons de toutes les lignes, même après leur redessin.
 liste.addEventListener("click", (event) => {
 	const bouton = event.target.closest("[data-action]");
@@ -95,7 +101,11 @@ dialogue.addEventListener("click", (event) => { if (event.target === dialogue) d
 commander.addEventListener("click", async () => {
 	// Empêche les clics répétés pendant la demande de paiement.
 	commander.disabled = true;
-	const resultat = await demarrerPaiement(detaillerPanier(lignes, catalogue));
-	message.textContent = resultat.message;
-	commander.disabled = lignes.length === 0;
+	message.textContent = "Préparation du paiement…";
+	try {
+		await demarrerPaiement(lignes);
+	} catch (erreur) {
+		message.textContent = erreur.message || "Impossible de démarrer le paiement.";
+		commander.disabled = lignes.length === 0;
+	}
 });
