@@ -1,0 +1,9 @@
+{
+  "name": "les-bonnes-pieces",
+  "version": "1.0.0",
+  "description": "Catalogue de pièces automobiles en HTML, CSS et JavaScript",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

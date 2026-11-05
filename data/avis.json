@@ -1,0 +1,6 @@
+[
+  { "pieceId": 1, "utilisateur": "Karim", "commentaire": "Très lumineux, monté en cinq minutes.", "nbEtoiles": 5 },
+  { "pieceId": 1, "utilisateur": "Sophie", "commentaire": "Bon rapport qualité-prix.", "nbEtoiles": 4 },
+  { "pieceId": 2, "utilisateur": "Julien", "commentaire": "Freinage plus net dès les premiers kilomètres.", "nbEtoiles": 5 },
+  { "pieceId": 5, "utilisateur": "Amina", "commentaire": "Essuyage silencieux, aucune trace.", "nbEtoiles": 4 }
+]

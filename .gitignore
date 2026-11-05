@@ -1,0 +1,9 @@
+# Dépendances et fichiers générés localement
+node_modules/
+.DS_Store
+*.log
+
+# Fichiers de configuration locale pouvant contenir des secrets
+.env
+.env.*
+!.env.example
