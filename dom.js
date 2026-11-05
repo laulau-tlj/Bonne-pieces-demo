@@ -1,4 +1,5 @@
-// Petit utilitaire pour créer un élément du DOM en une ligne
+// Crée un élément, applique ses attributs, puis lui ajoute les enfants fournis.
+// La propriété spéciale "text" utilise textContent pour traiter le texte comme du contenu, pas du HTML.
 export function el(tag, props = {}, ...enfants) {
 	const noeud = document.createElement(tag);
 	const { text, ...attributs } = props;

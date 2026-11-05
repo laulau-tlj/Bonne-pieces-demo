@@ -1,6 +1,7 @@
 import { MODE_DEMO, API_URL } from "./config.js";
 
-// Tout ce qui touche aux données passe par ce fichier : le reste du code ne sait pas d'où elles viennent.
+// Couche d'accès aux données : elle masque au reste de l'application si les réponses
+// viennent des fichiers JSON de démonstration ou du serveur configuré.
 
 async function lireJSON(url) {
 	// Vérifie la réponse HTTP avant d'essayer de lire son contenu JSON.
@@ -18,10 +19,12 @@ function lireLocal(cle) {
 	}
 }
 
+// Renvoie le catalogue depuis la source sélectionnée dans config.js.
 export function getPieces() {
 	return lireJSON(MODE_DEMO ? "data/pieces.json" : `${API_URL}/pieces`);
 }
 
+// Renvoie les avis d'une pièce, en ajoutant en mode démo ceux enregistrés localement.
 export async function getAvis(id) {
 	if (!MODE_DEMO) return lireJSON(`${API_URL}/pieces/${id}/avis`);
 	const tous = await lireJSON("data/avis.json");
@@ -29,6 +32,7 @@ export async function getAvis(id) {
 	return [...exemples, ...lireLocal(`avis-demo-${id}`)];
 }
 
+// Enregistre un avis dans le navigateur en mode démo, ou le transmet au serveur.
 export async function envoyerAvis(avis) {
 	if (MODE_DEMO) {
 		// Pas de serveur en démo : l'avis reste dans le navigateur du visiteur

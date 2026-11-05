@@ -1,3 +1,4 @@
+// Point d'entrée du navigateur : charge les données, relie les événements et redessine le catalogue.
 import { MODE_DEMO } from "./config.js";
 import { getPieces } from "./api.js";
 import { ajoutListenerAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
@@ -19,7 +20,7 @@ const selectPiece = document.querySelector("#piece-id");
 
 const formatPrix = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" });
 
-// Toutes les pièces, et l'état des filtres : la page est toujours redessinée à partir de ces deux sources
+// Source de vérité de l'affichage : les fiches visibles sont dérivées du catalogue et de cet état.
 let pieces = [];
 const etat = { prixMax: Infinity, avecDescription: false, enStock: false, favorisSeulement: false, tri: "defaut" };
 
@@ -48,6 +49,7 @@ function creerCoeur(piece) {
 }
 
 async function chargerPieces({ forcer = false } = {}) {
+	// Le bouton d'actualisation invalide ce cache pour relire la source de données.
 	if (forcer) window.localStorage.removeItem("pieces");
 	const enCache = window.localStorage.getItem("pieces");
 	if (enCache) return JSON.parse(enCache);
@@ -123,7 +125,7 @@ async function demarrer({ forcer = false } = {}) {
 	afficher();
 }
 
-// Écouteurs des filtres : chacun met à jour l'état puis redessine
+// Chaque contrôle ne modifie que l'état concerné, puis reconstruit les résultats depuis la source.
 prixMax.addEventListener("input", () => {
 	etat.prixMax = Number(prixMax.value);
 	prixValeur.textContent = formatPrix.format(etat.prixMax);

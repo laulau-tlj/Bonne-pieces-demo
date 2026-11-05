@@ -19,7 +19,7 @@ Catalogue de pièces automobiles réalisé en **HTML, CSS et JavaScript pur** (s
 
 HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Netlify Forms · tests avec `node:test`
 
-## 📁 Structure
+## Structure
 
 ```
 ├── index.html        # Page et structure
@@ -31,9 +31,18 @@ HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Ne
 ├── contact.js        # Formulaire de contact
 ├── api.js            # Accès aux données (fichiers JSON ou API)
 ├── config.js         # Mode démo ou mode API
-├── data/             # Pièces et avis d'exemple
+├── dom.js            # Création sécurisée des éléments HTML
+├── panier.js         # Règles du panier et calcul des montants
+├── panier-ui.js      # Affichage, actions et persistance du panier
+├── panier.test.js    # Tests des règles et calculs du panier
+├── paiement.js       # Point d'entrée provisoire du paiement
+├── data/             # Catalogue (pieces.json) et avis d'exemple (avis.json)
 └── images/           # Illustrations et logo
 ```
+
+### Parcours des données
+
+`pieces.js` charge le catalogue via `api.js`, puis utilise `filtres.js` pour calculer les fiches visibles. Les avis passent également par `api.js` avant d'être affichés par `avis.js`. Le panier sépare ses règles indépendantes du navigateur (`panier.js`) de son interface et de sa sauvegarde (`panier-ui.js`). Les données de démonstration se trouvent dans `data/`; `config.js` permet de choisir cette source ou l'API locale.
 
 ## 🚀 Lancer le projet
 
@@ -48,7 +57,7 @@ HTML5 · CSS3 (variables, grid) · JavaScript (modules ES) · localStorage · Ne
 npm test
 ```
 
-## 🧠 Points techniques
+## Points techniques
 
 - **Un seul état pour les filtres** : la page est toujours redessinée à partir de l'état et des données, ce qui évite les incohérences entre filtres.
 - **Logique séparée de l'affichage** : `filtres.js` est testable sans navigateur.
@@ -56,6 +65,9 @@ npm test
 - **Sécurité** : les textes saisis par les visiteurs sont affichés avec `textContent`, jamais avec `innerHTML` (prévention des failles XSS).
 - **Délégation d'événements** : un seul écouteur pour tous les boutons d'avis et de favoris.
 
-## 👩🏾‍💻 Auteure
+## Auteure
 
-**Laura Jennifer TCHITOMBI** : [LinkedIn](https://linkedin.com/in/laura-tchitombi-b67a22204) · [GitHub](https://github.com/laulau-tlj) · [Portfolio](https://startling-cocada-167194.netlify.app)
+**Laura Jennifer TCHITOMBI** :
+[LinkedIn](https://linkedin.com/in/laura-tchitombi-b67a22204)
+[GitHub](https://github.com/laulau-tlj)
+[Portfolio](https://startling-cocada-167194.netlify.app)

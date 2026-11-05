@@ -2,7 +2,8 @@ import { el } from "./dom.js";
 import { ajouter, changerQuantite, retirer, detaillerPanier } from "./panier.js";
 import { demarrerPaiement } from "./paiement.js";
 
-// Le panier est conservé dans le navigateur pour survivre au rechargement de la page.
+// Interface du panier : seules les quantités et les identifiants sont persistés;
+// les informations et les prix sont reconstruits depuis le catalogue chargé.
 const CLE = "panier";
 const formatPrix = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" });
 
@@ -16,6 +17,7 @@ const commander = document.querySelector("#commander");
 
 function lireLignes() {
 	try {
+		// Ignore une valeur absente ou mal formée plutôt que de bloquer l'interface.
 		const valeur = JSON.parse(window.localStorage.getItem(CLE));
 		return Array.isArray(valeur) ? valeur : [];
 	} catch {
@@ -68,6 +70,7 @@ export function ajouterAuPanier(piece) {
 }
 
 export function initPanier(pieces) {
+	// Le catalogue permet de retrouver les informations et prix des lignes sauvegardées.
 	catalogue = pieces;
 	afficherPanier();
 }
@@ -86,6 +89,7 @@ liste.addEventListener("click", (event) => {
 
 document.querySelector("#ouvrir-panier").addEventListener("click", () => { message.textContent = ""; dialogue.showModal(); });
 document.querySelector("#fermer-panier").addEventListener("click", () => dialogue.close());
+// Clic sur l'arrière-plan (et non sur son contenu) : ferme également la fenêtre modale.
 dialogue.addEventListener("click", (event) => { if (event.target === dialogue) dialogue.close(); });
 
 commander.addEventListener("click", async () => {

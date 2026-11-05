@@ -14,6 +14,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css">
+	<script src="https://js.stripe.com/v3/"></script>
 	<script type="module" src="pieces.js"></script>
 </head>
 <body>
@@ -96,7 +97,7 @@
 		</section>
 	</main>
 
-	<!-- Présentation du projet et liens associés -->
+	<!-- Présentation du projet, technologies mises en œuvre et liens associés -->
 	<section class="a-propos" aria-labelledby="titre-apropos">
 		<div class="carte-propos">
 			<h2 id="titre-apropos">À propos de ce projet</h2>
@@ -117,7 +118,7 @@
 		</div>
 	</section>
 
-	<!-- Pied de page : coordonnées et formulaire de contact -->
+	<!-- Pied de page : coordonnées, réseaux sociaux et formulaire de contact -->
 	<footer id="contact" class="pied-de-page">
 		<div class="pied-grille">
 			<section aria-labelledby="titre-dev">
@@ -133,6 +134,7 @@
 			</section>
 			<section aria-labelledby="titre-contact">
 				<h2 id="titre-contact">Me contacter</h2>
+				<!-- Netlify Forms traite ce formulaire au déploiement; le champ caché sert d'anti-spam. -->
 				<form class="formulaire-contact" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
 					<input type="hidden" name="form-name" value="contact">
 					<p hidden><label>Ne pas remplir : <input name="bot-field"></label></p>
@@ -157,7 +159,7 @@
 	</footer>
 <p id="annonce" class="sr-only" role="status"></p>
 
-	<!-- Fenêtre modale contenant les articles ajoutés au panier -->
+	<!-- Fenêtre modale du panier; panier-ui.js génère les lignes et gère ses actions. -->
 	<dialog id="panier" aria-labelledby="titre-panier">
 		<div class="panier-entete">
 			<h2 id="titre-panier">Mon panier</h2>

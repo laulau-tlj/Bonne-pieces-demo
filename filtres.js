@@ -1,4 +1,5 @@
 // Logique des filtres et du tri : fonction pure (aucun accès au DOM), donc facile à tester.
+// etat contient les valeurs des contrôles; favoris est un Set d'identifiants de pièces.
 export function filtrerPieces(pieces, etat, favoris = new Set()) {
 	const liste = pieces.filter((piece) =>
 		piece.prix <= etat.prixMax &&

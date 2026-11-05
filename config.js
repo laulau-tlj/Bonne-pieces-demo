@@ -1,4 +1,4 @@
-// true  = version démo : les données viennent des fichiers du dossier data/ (aucun serveur nécessaire)
-// false = version de développement : les données viennent de l'API sur localhost:8081
+// Source utilisée par api.js : true pour la démo autonome, false pour l'API locale.
 export const MODE_DEMO = true;
+// Adresse de base des routes de catalogue et d'avis quand MODE_DEMO vaut false.
 export const API_URL = "http://localhost:8081";
