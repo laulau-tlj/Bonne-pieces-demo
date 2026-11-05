@@ -1,6 +1,7 @@
 /* --- Couleurs partagées par les composants du site --- */
 :root {
 	--encre: #1b1730;
+	--entete: #1b1730;
 	--violet: #5b3fd1;
 	--violet-clair: #ece8fb;
 	--papier: #f5f4f9;
@@ -52,7 +53,10 @@ body {
 
 /* --- En-tête du site : bandeau, logo et titre --- */
 header {
-	background: var(--encre);
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: var(--entete);
 	color: #fff;
 	border-bottom: 4px solid var(--violet);
 }
@@ -135,7 +139,7 @@ label {
 	margin-bottom: .4rem;
 }
 
-input[type="text"], input[type="number"], select, textarea {
+input[type="text"], input[type="number"], input[type="email"], select, textarea {
 	width: 100%;
 	padding: .55rem .7rem;
 	font: inherit;
@@ -508,6 +512,24 @@ button:disabled {
 	color: #e6e2f7;
 	background: var(--entete);
 	border-top: 4px solid var(--violet);
+}
+
+@media (max-width: 520px) {
+	.entete {
+		display: grid;
+		grid-template-columns: 44px minmax(0, 1fr);
+	}
+
+	.lien-contact {
+		grid-column: 1;
+		margin-left: 0;
+		text-align: center;
+	}
+
+	.bouton-panier {
+		grid-column: 2;
+		justify-self: end;
+	}
 }
 
 .pied-grille {
