@@ -2,11 +2,10 @@
 
 Catalogue de pièces automobiles réalisé en **HTML, CSS et JavaScript pur** (sans framework) : filtres combinables, tri, favoris, avis clients et formulaire de contact.
 
-🔗 **Démo en ligne :** [À COMPLÉTER : lien Netlify]
+🔗 **Démo en ligne :** (https://bonnes-pieces.netlify.app/)
 
-<!-- Ajoute une capture d'écran du site : ![Aperçu](./screenshot.png) -->
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 - Filtres combinables : prix maximum, avec description, en stock, favoris uniquement
 - Tri par prix croissant ou décroissant
