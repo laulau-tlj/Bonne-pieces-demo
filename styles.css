@@ -1,4 +1,4 @@
-/* Couleurs et dimensions partagées par l'ensemble de la page */
+/* --- Couleurs partagées par les composants du site --- */
 :root {
 	--encre: #1b1730;
 	--violet: #5b3fd1;
@@ -23,7 +23,7 @@
 	display: none !important;
 }
 
-/* Styles de base et aides à la navigation au clavier */
+/* --- Page et accessibilité clavier --- */
 body {
 	margin: 0;
 	font-family: "Bricolage Grotesque", system-ui, sans-serif;
@@ -50,7 +50,7 @@ body {
 	background: #fff;
 }
 
-/* En-tête */
+/* --- En-tête du site : bandeau, logo et titre --- */
 header {
 	background: var(--encre);
 	color: #fff;
@@ -87,7 +87,7 @@ header p {
 	color: #bdb8d6;
 }
 
-/* Mise en page */
+/* --- Mise en page principale : filtres et catalogue côte à côte --- */
 main {
 	max-width: 1280px;
 	margin: auto;
@@ -98,6 +98,7 @@ main {
 	align-items: start;
 }
 
+/* --- Panneau des filtres --- */
 .filtres {
 	position: sticky;
 	top: 1rem;
@@ -114,11 +115,11 @@ main {
 	font-size: 1.1rem;
 }
 
-/* Champs et boutons communs aux filtres et aux formulaires */
 .champ {
 	margin-bottom: 1rem;
 }
 
+/* --- Champs de formulaire, cases à cocher et boutons --- */
 label {
 	display: block;
 	margin-bottom: .3rem;
@@ -205,7 +206,7 @@ button:disabled {
 	color: var(--doux);
 }
 
-/* Catalogue */
+/* --- Barre de titre et compteur du catalogue --- */
 .barre {
 	display: flex;
 	justify-content: space-between;
@@ -224,6 +225,7 @@ button:disabled {
 	color: var(--doux);
 }
 
+/* --- Grille des fiches de pièces --- */
 .fiches {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -239,6 +241,7 @@ button:disabled {
 	border-radius: var(--rayon);
 }
 
+/* --- Image, nom, description et caractéristiques d'une pièce --- */
 .visuel {
 	display: grid;
 	place-items: center;
@@ -325,7 +328,7 @@ button:disabled {
 	font-variant-numeric: tabular-nums;
 }
 
-/* Avis */
+/* --- Avis affichés dans les fiches produit --- */
 .avis blockquote {
 	margin: .6rem 0 0;
 	padding: .6rem .8rem;
@@ -356,6 +359,7 @@ button:disabled {
 	font-size: .9rem;
 }
 
+/* --- Messages affichés quand aucun résultat n'est disponible --- */
 .vide {
 	grid-column: 1 / -1;
 	padding: 2rem;
@@ -370,7 +374,7 @@ button:disabled {
 	color: var(--rupture);
 }
 
-/* Sur petit écran, les filtres passent au-dessus du catalogue */
+/* --- Mise en page sur petit écran --- */
 @media (max-width: 860px) {
 	main {
 		grid-template-columns: 1fr;
@@ -382,13 +386,14 @@ button:disabled {
 	}
 }
 
-/* Respecte le réglage système qui réduit les animations */
+/* --- Respect du réglage système de réduction des animations --- */
 @media (prefers-reduced-motion: reduce) {
 	* {
 		transition: none !important;
 	}
 }
 
+/* --- Bandeau informatif affiché en mode démo --- */
 .bandeau-demo {
 	margin: 0;
 	padding: .5rem 1rem;
@@ -398,7 +403,7 @@ button:disabled {
 	color: var(--encre);
 }
 
-/* Remplace les couleurs par une palette sombre si l'utilisateur le préfère */
+/* --- Palette sombre automatique et adaptations des contrôles --- */
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme="light"]) {
 		--encre: #ece9fa;
@@ -433,7 +438,7 @@ button:disabled {
 	}
 }
 
-/* En-tête : lien vers le contact */
+/* --- Lien de contact dans l'en-tête --- */
 .lien-contact {
 	margin-left: auto;
 	padding: .5rem 1rem;
@@ -454,7 +459,7 @@ button:disabled {
 	}
 }
 
-/* Favoris */
+/* --- Bouton favori superposé à l'image du produit --- */
 .visuel {
 	position: relative;
 }
@@ -482,11 +487,12 @@ button:disabled {
 	border-color: var(--violet);
 }
 
+/* Compteur de favoris placé à côté de son filtre */
 .cases label span {
 	color: var(--doux);
 }
 
-/* Pied de page */
+/* --- Pied de page : colonnes, formulaires et mentions légales --- */
 .pied-de-page {
 	margin-top: 2rem;
 	padding: 2.5rem 1.5rem 1.5rem;
@@ -555,6 +561,7 @@ button:disabled {
 	color: #bdb8d6;
 }
 
+/* Adaptation du pied de page et du lien de contact aux petits écrans */
 @media (max-width: 860px) {
 	.pied-grille {
 		grid-template-columns: 1fr;
@@ -581,7 +588,7 @@ button:disabled {
 	}
 }
 
-/* Liens du pied de page : icônes */
+/* --- Réseaux sociaux et coordonnées du pied de page --- */
 .pied-de-page .liens {
 	display: flex;
 	flex-wrap: wrap;
@@ -615,7 +622,7 @@ button:disabled {
 	color: #bdb8d6;
 }
 
-/* À propos du projet */
+/* --- Carte de présentation du projet --- */
 .a-propos {
 	max-width: 1280px;
 	margin: 1rem auto 0;
@@ -683,6 +690,7 @@ button:disabled {
 	gap: .75rem;
 }
 
+/* Boutons-liens de la carte de présentation */
 .bouton-lien {
 	display: inline-block;
 	padding: .6rem 1rem;
@@ -707,7 +715,7 @@ button:disabled {
 	}
 }
 
-/* Panier */
+/* --- Panier : bouton d'ouverture et badge du nombre d'articles --- */
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -745,6 +753,7 @@ button:disabled {
 	width: 100%;
 }
 
+/* --- Fenêtre modale du panier --- */
 dialog {
 	width: min(460px, 92vw);
 	max-height: 85vh;
@@ -779,6 +788,7 @@ dialog::backdrop {
 	list-style: none;
 }
 
+/* --- Ligne d'article, image et réglage de la quantité --- */
 .ligne-panier {
 	display: grid;
 	grid-template-columns: 64px 1fr;
@@ -838,6 +848,7 @@ dialog::backdrop {
 	color: var(--doux);
 }
 
+/* --- Total, bouton de commande et message de retour --- */
 .panier-total {
 	display: flex;
 	justify-content: space-between;
