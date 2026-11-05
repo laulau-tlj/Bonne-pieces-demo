@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { creerLignesCheckout } from "./checkout-cart.mjs";
+import { creerLignesCheckout } from "../netlify/functions/checkout-cart.mjs";
 
 //ici on définit un catalogue de test avec deux pièces, une disponible et une indisponible, pour tester la fonction creerLignesCheckout
 const catalogue = [
