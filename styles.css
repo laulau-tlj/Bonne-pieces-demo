@@ -454,12 +454,20 @@ button:disabled {
 /* --- Lien de contact dans l'en-tête --- */
 .lien-contact {
 	margin-left: auto;
-	padding: .5rem 1rem;
+	width: 2.75rem;
+	height: 2.75rem;
+	display: grid;
+	place-items: center;
 	color: #fff;
 	text-decoration: none;
 	font-weight: 600;
 	border: 1px solid #6d5fb0;
 	border-radius: 6px;
+}
+
+.lien-contact svg {
+	width: 1.35rem;
+	height: 1.35rem;
 }
 
 .lien-contact:hover {
@@ -520,10 +528,65 @@ button:disabled {
 		grid-template-columns: 44px minmax(0, 1fr);
 	}
 
+	header img {
+		width: 44px;
+		height: 44px;
+		object-fit: contain;
+	}
+
+	header h1 {
+		font-size: clamp(1.2rem, 5vw, 1.5rem);
+	}
+
+	.fiches {
+		gap: .85rem;
+	}
+
+	.visuel {
+		aspect-ratio: 16 / 9;
+		min-height: 0;
+		padding: .65rem;
+	}
+
+	.visuel img {
+		width: auto;
+		height: auto;
+		max-height: 8rem;
+	}
+
+	.contenu {
+		gap: .45rem;
+		padding: .75rem;
+	}
+
+	.contenu h2 {
+		font-size: 1rem;
+	}
+
+	.description {
+		-webkit-line-clamp: 2;
+	}
+
+	.specs {
+		padding-top: .4rem;
+	}
+
+	.pied {
+		flex-wrap: wrap;
+	}
+
+	.prix {
+		font-size: 1.3rem;
+	}
+
+	.pied .secondaire {
+		padding: .45rem .65rem;
+		font-size: .9rem;
+	}
+
 	.lien-contact {
 		grid-column: 1;
 		margin-left: 0;
-		text-align: center;
 	}
 
 	.bouton-panier {
