@@ -820,23 +820,42 @@ button:disabled {
 }
 
 .bouton-panier {
-	display: inline-flex;
-	align-items: center;
-	gap: .5rem;
-	padding: .5rem 1rem;
+	position: relative;
 	color: #fff;
 	background: #5b3fd1;
 	border-color: #5b3fd1;
+}
+
+.lien-contact,
+.bouton-panier {
+	box-sizing: border-box;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	display: grid;
+	place-items: center;
+	flex: 0 0 2.75rem;
+}
+
+.bouton-panier svg {
+	width: 1.25rem;
+	height: 1.25rem;
 }
 
 .bouton-panier:hover {
 	background: #4a30b8;
 }
 
-.bouton-panier span {
+.bouton-panier #nb-panier {
+	position: absolute;
+	top: -.35rem;
+	right: -.35rem;
+	height: 1.25rem;
 	min-width: 1.4rem;
-	padding: 0 .4rem;
-	font-size: .85rem;
+	padding: 0 .25rem;
+	display: grid;
+	place-items: center;
+	font-size: .75rem;
 	text-align: center;
 	color: #5b3fd1;
 	background: #fff;
@@ -928,12 +947,20 @@ dialog::backdrop {
 
 .quantite .supprimer {
 	margin-left: auto;
-	padding: 0;
+	padding: .25rem .55rem;
 	color: var(--rupture);
-	background: none;
-	border: none;
-	text-decoration: underline;
-	font-weight: 400;
+	background: var(--carte);
+	border: 1px solid var(--rupture);
+	border-radius: 6px;
+}
+
+.quantite .supprimer:hover {
+	color: #fff;
+	background: var(--rupture);
+}
+
+.quantite .supprimer:focus-visible {
+	outline-color: var(--rupture);
 }
 
 .panier-vide {
@@ -962,7 +989,7 @@ dialog::backdrop {
 }
 
 @media (prefers-color-scheme: dark) {
-	:root:not([data-theme="light"]) .quantite button {
+	:root:not([data-theme="light"]) .quantite button:not(.supprimer) {
 		color: #14111f;
 		background: #ece8fb;
 	}
